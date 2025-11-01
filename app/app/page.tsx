@@ -4,7 +4,7 @@ import { Connection, PublicKey, SystemProgram, ComputeBudgetProgram } from "@sol
 import { useWallet } from "@solana/wallet-adapter-react";
 import { BorshCoder, Idl } from "@coral-xyz/anchor";
 import idl from "./lib/idl/pot_game.json";
-import { getProgramWithWallet, getVaultPda } from "./lib/program";
+import { getProgramWithWallet, getVaultPda, BN } from "./lib/program";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 type GameAccount = {
@@ -70,7 +70,7 @@ export default function HomePage() {
     const vault = await getVaultPda(gamePk);
 
     // build tx with optional priority fee
-    const tx = await program.methods.placeBid(new anchor.BN(lamports)).accounts({
+    const tx = await program.methods.placeBid(new BN(lamports)).accounts({
       bidder: wallet.publicKey,
       game: gamePk,
       vault,
