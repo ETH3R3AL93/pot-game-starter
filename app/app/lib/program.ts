@@ -9,7 +9,7 @@ const PROGRAM_ID = new PublicKey(process.env.NEXT_PUBLIC_PROGRAM_ID!);
 export async function getProgramWithWallet(connection: Connection, wallet: WalletContextState) {
   // WalletContextState matches the Anchor "wallet" interface sufficiently for browser usage
   const provider = new AnchorProvider(connection, wallet as any, { commitment: "confirmed" });
-  return new Program(idl as any, PROGRAM_ID, provider);
+  return new Program(idl as any, provider, PROGRAM_ID);
 }
 
 export async function getVaultPda(game: PublicKey) {
