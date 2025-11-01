@@ -1,0 +1,238 @@
+{
+  "version": "0.1.0",
+  "name": "pot_game",
+  "instructions": [
+    {
+      "name": "initializeGame",
+      "accounts": [
+        {
+          "name": "admin",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "game",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "vault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "durationSeconds",
+          "type": "i64"
+        },
+        {
+          "name": "minBidLamports",
+          "type": "u64"
+        },
+        {
+          "name": "burnBps",
+          "type": "u16"
+        },
+        {
+          "name": "feeBps",
+          "type": "u16"
+        },
+        {
+          "name": "treasury",
+          "type": {
+            "option": "publicKey"
+          }
+        }
+      ]
+    },
+    {
+      "name": "placeBid",
+      "accounts": [
+        {
+          "name": "bidder",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "game",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "vault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "lamports",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "settle",
+      "accounts": [
+        {
+          "name": "caller",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "game",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "vault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "winner",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "incinerator",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "treasury",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Game",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "type": "publicKey"
+          },
+          {
+            "name": "vault",
+            "type": "publicKey"
+          },
+          {
+            "name": "lastBidder",
+            "type": "publicKey"
+          },
+          {
+            "name": "endTime",
+            "type": "i64"
+          },
+          {
+            "name": "durationSeconds",
+            "type": "i64"
+          },
+          {
+            "name": "minBidLamports",
+            "type": "u64"
+          },
+          {
+            "name": "burnBps",
+            "type": "u16"
+          },
+          {
+            "name": "feeBps",
+            "type": "u16"
+          },
+          {
+            "name": "treasury",
+            "type": {
+              "option": "publicKey"
+            }
+          },
+          {
+            "name": "isSettled",
+            "type": "bool"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Math",
+      "msg": "Math overflow/underflow"
+    },
+    {
+      "code": 6001,
+      "name": "BpsInvalid",
+      "msg": "BPS must be <= 10000"
+    },
+    {
+      "code": 6002,
+      "name": "GameOver",
+      "msg": "Game has ended"
+    },
+    {
+      "code": 6003,
+      "name": "GameNotOver",
+      "msg": "Game not over yet"
+    },
+    {
+      "code": 6004,
+      "name": "AlreadySettled",
+      "msg": "Already settled"
+    },
+    {
+      "code": 6005,
+      "name": "NoWinner",
+      "msg": "No winner"
+    },
+    {
+      "code": 6006,
+      "name": "EmptyPot",
+      "msg": "Empty pot"
+    },
+    {
+      "code": 6007,
+      "name": "BidTooSmall",
+      "msg": "Bid below minimum"
+    },
+    {
+      "code": 6008,
+      "name": "InvalidTreasury",
+      "msg": "Invalid or missing treasury"
+    },
+    {
+      "code": 6009,
+      "name": "InvalidIncinerator",
+      "msg": "Invalid incinerator address"
+    }
+  ],
+  "metadata": {
+    "address": "PoTGaMe11111111111111111111111111111111111"
+  }
+}
